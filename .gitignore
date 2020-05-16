@@ -1,16 +1,18 @@
-/out/
-/resources/public/js/compiled/
-/target/
-/*-init.clj
-/*.log
-
-# Leiningen
+/target
+/classes
+/checkouts
+pom.xml
+pom.xml.asc
+*.jar
+*.class
 /.lein-*
 /.nrepl-port
-
-# Node.js dependencies
-/node_modules/
-
-# shadow-cljs cache, port files
-/shadow-cljs.edn
-/.shadow-cljs/
+.hgignore
+.hg/
+/resources/public/js
+/resources/public/css
+figwheel_server.log
+.idea
+*.iml
+yarn-error.log
+node_modules/

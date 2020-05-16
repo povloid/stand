@@ -1,25 +1,32 @@
 (ns stand.core
-  (:require
-   [reagent.core :as reagent]
-   [reagent.dom :as rdom]
-   [re-frame.core :as re-frame]
-   [stand.events :as events]
-   [stand.views :as views]
-   [stand.config :as config]
-   ))
+  (:require [re-frame.core :refer [clear-subscription-cache!
+                                   dispatch
+                                   dispatch-sync
+                                   subscribe]]
+            [reagent.core :as reagent]
+            [reagent.dom :as rdom]
 
+            [stand.events :as events]
+            [stand.views :as views]
+            [stand.config :as config]))
+
+(enable-console-print!)
 
 (defn dev-setup []
   (when config/debug?
     (println "dev mode")))
 
-(defn ^:dev/after-load mount-root []
-  (re-frame/clear-subscription-cache!)
-  (let [root-el (.getElementById js/document "app")]
-    (rdom/unmount-component-at-node root-el)
-    (rdom/render [views/main-panel] root-el)))
+(defn root-component []
+  [:dev
+   [:h1 "Hello"]])
 
-(defn init []
-  (re-frame/dispatch-sync [::events/initialize-db])
-  (dev-setup)
-  (mount-root))
+(defn mount-root []
+  (clear-subscription-cache!)
+  (rdom/render
+   [root-component]
+   (js/document.getElementById "app-container")))
+
+(defn ^:export init []
+  (dispatch-sync [::events/initialize-db])
+  (mount-root)
+  (dispatch [::events/init]))

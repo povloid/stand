@@ -1,11 +1,7 @@
 (ns stand.views
-  (:require
-   [re-frame.core :as re-frame]
-   [stand.subs :as subs]
-   ))
+  (:require [stand.events :as events]
+            [stand.subs :as subs]))
 
 (defn main-panel []
-  (let [name (re-frame/subscribe [::subs/name])]
-    [:div
-     [:h1 "Hello from " @name]
-     ]))
+  [:div
+   [:h1 "Hello from " ]])

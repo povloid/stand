@@ -1,10 +1,14 @@
 (ns stand.events
   (:require
-   [re-frame.core :as re-frame]
-   [stand.db :as db]
-   ))
+   [re-frame.core :refer [reg-event-db]]
+   [stand.db :as db]))
 
-(re-frame/reg-event-db
+(reg-event-db
  ::initialize-db
  (fn [_ _]
    db/default-db))
+
+(reg-event-db
+ ::init
+ (fn [db _]
+   db))
